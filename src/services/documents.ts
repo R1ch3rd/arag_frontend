@@ -103,16 +103,12 @@ export const documentService = {
     }
   },
 
-  // Keep the existing upload methods for compatibility
-  async getUploadUrl(filename: string, token?: string) {
-    // This might not be needed if you're using direct upload
-    // But keeping for backward compatibility
+  // Keep one upload method for compatibility
+  async getUploadUrl(_filename: string, _token?: string) {
     throw new Error('Use uploadDocument instead')
   },
 
-  async confirmUpload(documentId: string, token?: string) {
-    // This might not be needed if you're using direct upload
-    // But keeping for backward compatibility
+  async confirmUpload(_documentId: string, _token?: string) {
     throw new Error('Use uploadDocument instead')
   }
 }

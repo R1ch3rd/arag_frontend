@@ -77,7 +77,7 @@ export const chatService = {
     }))
 
     // Sort by last message time (most recent first)
-    return sessions.sort((a, b) => {
+    return sessions.sort((a: any, b: any) => {
       const timeA = new Date(a.last_message_at || a.last_accessed).getTime()
       const timeB = new Date(b.last_message_at || b.last_accessed).getTime()
       return timeB - timeA
@@ -253,7 +253,7 @@ export const chatService = {
   },
 
   // Cache Management - DISABLE FOR NOW
-  async clearCache(token: string): Promise<void> {
+  async clearCache(_token: string): Promise<void> {
     // TEMPORARILY DISABLED DUE TO 403 ERROR
     console.warn('Cache clearing disabled due to 403 authentication error')
     return Promise.resolve()

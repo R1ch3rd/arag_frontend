@@ -8,7 +8,6 @@ import {
   ConfirmForgotPasswordCommand,
   type InitiateAuthCommandOutput,
   type SignUpCommandOutput,
-  type ConfirmSignUpCommandOutput,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { jwtDecode } from "jwt-decode";
 
@@ -167,7 +166,7 @@ export class CognitoAuth {
         ConfirmationCode: confirmationCode,
       });
 
-      const response: ConfirmSignUpCommandOutput = await client.send(command);
+      await client.send(command);
 
       return { success: true };
     } catch (error: any) {

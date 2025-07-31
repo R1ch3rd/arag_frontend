@@ -1,5 +1,5 @@
 // pages/auth/ConfirmSignup.tsx - ENHANCED with better success handling
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';

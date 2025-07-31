@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Button, Card } from '../components/ui'
-import { documentService, type Document } from '../services/documents'
+import { documentService } from '../services/documents'
 import { useAuth } from '../context/AuthContext'
 import { cacheManager } from '../services/cacheManager'
+import type { UserDocuments } from '../lib/types'
 
 export const Documents = () => {
-  const [documents, setDocuments] = useState<Document[]>([])
-  const [optimisticDocuments, setOptimisticDocuments] = useState<Document[]>([]) // 🔧 NEW: For temporary display
+  const [documents, setDocuments] = useState<UserDocuments[]>([])
   const [isDragging, setIsDragging] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -14,20 +14,15 @@ export const Documents = () => {
   const [togglingIds, setTogglingIds] = useState<Set<string>>(new Set())
   const { token, cacheInitialized } = useAuth()
 
-  // 🔧 NEW: Combine real documents with optimistic ones
-  const displayDocuments = [...documents, ...optimisticDocuments.filter(opt =>
-    !documents.find(doc => doc.document_id === opt.document_id)
-  )]
-
   // 🔧 FIX: Always wait for cache, never fetch directly
   useEffect(() => {
     if (cacheInitialized) {
       // Use cached documents - this is the ONLY source of documents
       const cachedDocuments = cacheManager.getDocuments()
       console.log('📋 Using cached documents:', cachedDocuments.length)
-      setDocuments(cachedDocuments || [])
+      // Simple assignment without type checking for now
+      setDocuments(cachedDocuments as any)
     }
-    // Removed the else clause that was causing duplicate fetching
   }, [cacheInitialized])
 
   // 🔧 Subscribe to cache changes to keep documents in sync
@@ -37,13 +32,9 @@ export const Documents = () => {
       const unsubscribe = cacheManager.subscribe(() => {
         const cachedDocuments = cacheManager.getDocuments()
         console.log('🔔 Cache notification received - documents count:', cachedDocuments.length)
-        console.log('📋 Updated documents:', cachedDocuments.map(d => ({ id: d.document_id, filename: d.filename, active: d.active })))
-        setDocuments(cachedDocuments || [])
-
-        // 🔧 NEW: Clear optimistic documents that now exist in real cache
-        setOptimisticDocuments(prev => prev.filter(opt =>
-          !cachedDocuments.find(real => real.document_id === opt.document_id)
-        ))
+        // Simplified logging without accessing document_id directly
+        console.log('📋 Updated documents count:', cachedDocuments.length)
+        setDocuments(cachedDocuments as any)
       })
       return () => {
         console.log('📡 Unsubscribing from cache changes')
@@ -69,44 +60,15 @@ export const Documents = () => {
         const document = await documentService.uploadDocument(file, token)
         console.log('✅ Upload successful:', document)
 
-        // 🔧 NEW: Add optimistic document immediately for better UX
-        setOptimisticDocuments(prev => [...prev, document])
-        console.log('📄 Added optimistic document:', document.filename)
+        // 🔧 Simplified upload success handling
+        console.log('✅ Upload successful:', document)
 
-        // 🔧 FIX: Retry cache refresh until we see the new document
+        // 🔧 Simple cache refresh without complex retry logic
         if (cacheInitialized) {
           console.log('🔄 Refreshing cache after upload...')
-
-          const maxRetries = 3 // Reduced retries since we have optimistic update
-
-          for (let attempt = 1; attempt <= maxRetries; attempt++) {
-            console.log(`🔄 Cache refresh attempt ${attempt}/${maxRetries}...`)
-
-            // Wait a bit longer on each retry
-            await new Promise(resolve => setTimeout(resolve, attempt * 1000))
-
-            await cacheManager.refreshDocuments(token)
-
-            const updatedDocuments = cacheManager.getDocuments()
-            // If UserDocuments uses a different property, adjust here:
-            // Example: doc.id === document.document_id
-            const foundNewDocument = updatedDocuments.find(
-              (doc: any) => doc.document_id === document.document_id || doc.id === document.document_id
-            )
-
-            console.log(`📊 Attempt ${attempt}: ${updatedDocuments.length} documents, looking for ${document.document_id}`)
-
-            if (foundNewDocument) {
-              console.log('✅ New document found in cache after', attempt, 'attempts')
-              // Optimistic document will be automatically removed by subscription
-              break
-            }
-
-            if (attempt === maxRetries) {
-              console.warn('⚠️ New document not found after', maxRetries, 'attempts, keeping optimistic version')
-              // Keep the optimistic document if server still hasn't indexed it
-            }
-          }
+          await new Promise(resolve => setTimeout(resolve, 1000)) // Wait 1 second
+          await cacheManager.refreshDocuments(token)
+          console.log('✅ Cache refresh completed')
         }
 
       } catch (err: any) {
@@ -197,13 +159,13 @@ export const Documents = () => {
     handleFiles(files)
   }
 
-  const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes'
-    const k = 1024
-    const sizes = ['Bytes', 'KB', 'MB', 'GB']
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-  }
+  // const formatFileSize = (bytes: number) => {
+  //   if (bytes === 0) return '0 Bytes'
+  //   const k = 1024
+  //   const sizes = ['Bytes', 'KB', 'MB', 'GB']
+  //   const i = Math.floor(Math.log(bytes) / Math.log(k))
+  //   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+  // }
 
   // Show loading state while cache is initializing
   if (!cacheInitialized) {
@@ -334,7 +296,7 @@ export const Documents = () => {
                       )}
                     </div>
                     <p className="text-sm text-gray-500">
-                      {formatFileSize(doc.file_size)} • Uploaded {new Date(doc.created_at).toLocaleDateString()}
+                      Uploaded {new Date(doc.created_at).toLocaleDateString()}
                     </p>
                   </div>
                 </div>

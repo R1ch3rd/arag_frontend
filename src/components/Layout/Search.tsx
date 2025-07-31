@@ -26,7 +26,12 @@ export const SessionSearch = ({ onSessionSelect, isOpen, onClose }: SessionSearc
       const token = getIdToken()
       if (!token) return
 
-      const searchResults = await chatService.searchSessions(searchQuery, token)
+      // Get all sessions and filter them locally instead of using searchSessions
+      const allSessions = await chatService.listSessions(token)
+      const searchResults = allSessions.filter(session =>
+        session.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        session.lastMessage?.toLowerCase().includes(searchQuery.toLowerCase())
+      )
       setResults(searchResults)
     } catch (error) {
       console.error('Search error:', error)
@@ -39,7 +44,7 @@ export const SessionSearch = ({ onSessionSelect, isOpen, onClose }: SessionSearc
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setQuery(value)
-    
+
     // Debounce search
     const timeoutId = setTimeout(() => {
       handleSearch(value)

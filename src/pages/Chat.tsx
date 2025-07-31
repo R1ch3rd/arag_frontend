@@ -242,7 +242,7 @@ export const Chat = () => {
     }
   }
 
-  const loadSession = async (sessionId: string, clearCache: boolean = true) => {
+  const loadSession = async (sessionId: string, _clearCache: boolean = true) => {
     try {
       if (currentSession?.session_id === sessionId) {
         setMobileSidebarOpen(false) // Close mobile sidebar
@@ -306,6 +306,7 @@ export const Chat = () => {
   }
 
   const handleSend = async () => {
+
     if (!input.trim() || !currentSession) return
 
     setIsLoading(true)
@@ -516,6 +517,7 @@ export const Chat = () => {
       </div>
     </div>
   )
+
 
   return (
     <>
