@@ -84,10 +84,10 @@ class CacheManager {
     try {
       // Fetch both sessions and documents in parallel
       const [sessionsResponse, documentsResponse] = await Promise.all([
-        fetch('/api/chat/sessions', {
+        fetch(`${import.meta.env.VITE_API_URL}/chat/sessions`, {
           headers: { 'Authorization': `Bearer ${token}` }
         }),
-        fetch('/api/documents', {
+        fetch(`${import.meta.env.VITE_API_URL}/documents`, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       ])
@@ -146,7 +146,7 @@ class CacheManager {
 
     try {
       // Load messages for new session (no cache clearing)
-      const response = await fetch(`/api/chat/sessions/${sessionId}/messages`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/chat/sessions/${sessionId}/messages`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
 
@@ -221,7 +221,7 @@ class CacheManager {
   async refreshDocuments(token: string): Promise<void> {
     try {
       console.log('🔄 Fetching documents from server...')
-      const response = await fetch('/api/documents', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/documents`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
 
@@ -264,7 +264,7 @@ class CacheManager {
   // Force refresh sessions (only when needed)
   async refreshSessions(token: string): Promise<void> {
     try {
-      const response = await fetch('/api/chat/sessions', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/chat/sessions`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
 
