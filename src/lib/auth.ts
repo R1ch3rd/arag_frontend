@@ -15,7 +15,9 @@ const client = new CognitoIdentityProviderClient({
   region: "us-east-1",
 });
 
-const CLIENT_ID = "7qu59bcn8kbc89ct9p74pjcqh9";
+// Cognito app client for the arag-backend stack (CloudFormation output
+// UserPoolClientId). Override via env for other stacks/stages.
+const CLIENT_ID = import.meta.env.VITE_COGNITO_CLIENT_ID || "3sh7r54dbj7u0ta95b8suqah49";
 
 // ✨ ENHANCED: Extended response types
 export type LoginResponse = {

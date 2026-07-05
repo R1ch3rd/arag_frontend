@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Button } from '../components/ui'
+import { Markdown } from '../components/ui/Markdown'
 import { chatService } from '../services/chat'
 import { cacheManager } from '../services/cacheManager'
 import { useAuth } from '../context/AuthContext'
@@ -485,8 +486,10 @@ export const Chat = () => {
             : 'bg-cream text-ink border'
             }`}
         >
-          <div className="whitespace-pre-wrap break-words text-sm leading-relaxed pr-12">
-            {message.content}
+          <div className="break-words text-sm leading-relaxed pr-12">
+            {message.role === 'assistant'
+              ? <Markdown>{message.content}</Markdown>
+              : <span className="whitespace-pre-wrap">{message.content}</span>}
           </div>
 
           {/* Timestamp inside bubble */}

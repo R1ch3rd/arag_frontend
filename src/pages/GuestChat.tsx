@@ -1,6 +1,7 @@
 // pages/GuestChat.tsx — public demo: no account, rate-limited, pre-seeded docs
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Markdown } from '../components/ui/Markdown'
 
 interface GuestSource {
   filename: string
@@ -121,13 +122,15 @@ export const GuestChat = () => {
           {messages.map((m, i) => (
             <div key={i} className={`flex mb-5 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div
-                className={`max-w-[85%] sm:max-w-[75%] rounded-xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap break-words ${
+                className={`max-w-[85%] sm:max-w-[75%] rounded-xl px-4 py-3 text-sm leading-relaxed break-words ${
                   m.role === 'user'
                     ? 'bg-accent-btn text-white'
                     : 'bg-surface border border-surface-border text-ink'
                 }`}
               >
-                {m.content}
+                {m.role === 'assistant'
+                  ? <Markdown>{m.content}</Markdown>
+                  : <span className="whitespace-pre-wrap">{m.content}</span>}
                 {m.role === 'assistant' && m.sources && m.sources.length > 0 && (
                   <div className="mt-3 pt-2 border-t border-surface-border">
                     {m.sources.map((s, j) => (
