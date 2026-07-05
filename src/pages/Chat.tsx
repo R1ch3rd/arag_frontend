@@ -457,16 +457,16 @@ export const Chat = () => {
   // Show loading only briefly, then show app even if cache is loading
   if (!isInitialized && backgroundLoading) {
     return (
-      <div className="flex h-screen bg-white rounded-lg shadow overflow-hidden">
-        <div className="w-48 md:w-64 bg-gray-50 border-r border-gray-200 flex flex-col items-center justify-center">
-          <div className="animate-spin w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full mb-2"></div>
-          <p className="text-sm text-gray-600">Loading sessions...</p>
+      <div className="flex h-screen bg-surface rounded-lg shadow overflow-hidden">
+        <div className="w-48 md:w-64 bg-cream border-r border-surface-border flex flex-col items-center justify-center">
+          <div className="animate-spin w-6 h-6 border-2 border-accent border-t-transparent rounded-full mb-2"></div>
+          <p className="text-sm text-ink-muted">Loading sessions...</p>
         </div>
 
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-            <p className="text-gray-600">Setting up your chat...</p>
+            <div className="animate-spin w-8 h-8 border-2 border-accent border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p className="text-ink-muted">Setting up your chat...</p>
           </div>
         </div>
       </div>
@@ -481,8 +481,8 @@ export const Chat = () => {
       <div className={`max-w-[85%] sm:max-w-[75%] lg:max-w-[65%] ${message.role === 'user' ? 'order-2' : 'order-1'}`}>
         <div
           className={`rounded-2xl px-4 py-3 relative ${message.role === 'user'
-            ? 'bg-blue-600 text-white'
-            : 'bg-gray-50 text-gray-900 border'
+            ? 'bg-accent-btn text-white'
+            : 'bg-cream text-ink border'
             }`}
         >
           <div className="whitespace-pre-wrap break-words text-sm leading-relaxed pr-12">
@@ -490,19 +490,19 @@ export const Chat = () => {
           </div>
 
           {/* Timestamp inside bubble */}
-          <div className={`absolute bottom-2 right-3 text-xs opacity-70 ${message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
+          <div className={`absolute bottom-2 right-3 text-xs opacity-70 ${message.role === 'user' ? 'text-white/70' : 'text-ink-muted'
             }`}>
             {formatTimestamp(message.timestamp)}
           </div>
 
           {/* Clean sources display */}
           {message.role === 'assistant' && message.sources && message.sources.length > 0 && (
-            <div className="mt-4 pt-3 border-t border-gray-200">
-              <p className="text-xs font-medium text-gray-600 mb-2">Sources:</p>
+            <div className="mt-4 pt-3 border-t border-surface-border">
+              <p className="text-xs font-medium text-ink-muted mb-2">Sources:</p>
               <div className="space-y-2">
                 {message.sources.map((source, idx) => (
-                  <div key={idx} className="text-xs text-gray-600 bg-white rounded-lg p-2 border">
-                    <div className="font-medium text-gray-800 mb-1">
+                  <div key={idx} className="text-xs text-ink-muted bg-surface rounded-lg p-2 border">
+                    <div className="font-medium text-ink mb-1">
                       Document {source.document_id}
                     </div>
                     <div className="line-clamp-2 leading-relaxed">
@@ -525,7 +525,7 @@ export const Chat = () => {
       {mobileSidebarOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div className="fixed inset-0 bg-black/50" onClick={() => setMobileSidebarOpen(false)} />
-          <div className="fixed top-0 left-0 bottom-0 w-72 sm:w-80 bg-white shadow-xl h-screen overflow-hidden">
+          <div className="fixed top-0 left-0 bottom-0 w-72 sm:w-80 bg-surface shadow-xl h-screen overflow-hidden">
             <SessionSidebar
               sessions={sessions}
               currentSessionId={currentSession?.session_id}
@@ -540,7 +540,7 @@ export const Chat = () => {
       )}
 
       {/* Main container - fixed to viewport height, no page scrolling */}
-      <div className="flex h-screen bg-white rounded-lg shadow overflow-hidden">
+      <div className="flex h-screen bg-surface rounded-lg shadow overflow-hidden">
         {/* Desktop Session Sidebar */}
         <div className="hidden md:block">
           <SessionSidebar
@@ -557,13 +557,13 @@ export const Chat = () => {
         {/* Main Chat Area - flex column with proper height constraints */}
         <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
           {/* Header - fixed height, no shrinking */}
-          <div className="flex-shrink-0 border-b border-gray-200 p-3 sm:p-4 bg-white">
+          <div className="flex-shrink-0 border-b border-surface-border p-3 sm:p-4 bg-surface">
             <div className="flex items-center justify-between">
               <div className="flex items-center min-w-0 flex-1">
                 {/* Mobile menu button */}
                 <button
                   onClick={() => setMobileSidebarOpen(true)}
-                  className="md:hidden mr-3 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="md:hidden mr-3 p-2 rounded-lg hover:bg-cream-deep transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -578,12 +578,12 @@ export const Chat = () => {
                       className="mb-1"
                     />
                   ) : (
-                    <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">New Chat</h1>
+                    <h1 className="text-lg sm:text-xl font-semibold text-ink mb-1">New Chat</h1>
                   )}
 
                   <div className="flex items-center space-x-3 text-xs sm:text-sm">
                     {currentSession && messages.length > 0 && (
-                      <p className="text-gray-500">
+                      <p className="text-ink-muted">
                         {messages.length} message{messages.length !== 1 ? 's' : ''}
                       </p>
                     )}
@@ -595,8 +595,8 @@ export const Chat = () => {
                     )}
 
                     {backgroundLoading && (
-                      <div className="flex items-center space-x-2 text-blue-600">
-                        <div className="animate-spin w-3 h-3 border border-blue-600 border-t-transparent rounded-full"></div>
+                      <div className="flex items-center space-x-2 text-accent-deep">
+                        <div className="animate-spin w-3 h-3 border border-accent border-t-transparent rounded-full"></div>
                         <span className="hidden sm:inline">Loading...</span>
                       </div>
                     )}
@@ -629,11 +629,11 @@ export const Chat = () => {
 
           {/* Error Display */}
           {error && (
-            <div className="flex-shrink-0 bg-red-50 text-red-600 p-3 sm:p-4 text-sm border-b border-red-200 flex items-center justify-between">
+            <div className="flex-shrink-0 bg-blush-dim text-blush p-3 sm:p-4 text-sm border-b border-blush-dim flex items-center justify-between">
               <span>{error}</span>
               <button
                 onClick={() => setError(null)}
-                className="text-red-400 hover:text-red-600 ml-2 text-lg"
+                className="text-blush hover:text-blush ml-2 text-lg"
               >
                 ×
               </button>
@@ -644,18 +644,18 @@ export const Chat = () => {
           <div className="flex-1 overflow-y-auto px-3 sm:px-4 py-4 sm:py-6">
             {messages.length === 0 && !isLoading && (
               <div className="flex items-center justify-center h-full">
-                <div className="text-center text-gray-500 max-w-md px-4">
-                  <svg className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="text-center text-ink-muted max-w-md px-4">
+                  <svg className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-4 text-ink-faint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
-                  <h3 className="text-lg sm:text-xl font-medium text-gray-900 mb-2">
+                  <h3 className="text-lg sm:text-xl font-medium text-ink mb-2">
                     Start a conversation
                   </h3>
-                  <p className="text-gray-500 leading-relaxed text-sm sm:text-base">
+                  <p className="text-ink-muted leading-relaxed text-sm sm:text-base">
                     Ask questions about your documents and I'll help you find the information you need.
                   </p>
                   {!isModelLocked && (
-                    <p className="text-sm text-blue-600 mt-3 font-medium">
+                    <p className="text-sm text-accent-deep mt-3 font-medium">
                       💡 You can change models before sending your first message
                     </p>
                   )}
@@ -666,8 +666,8 @@ export const Chat = () => {
                     const activeDocuments = documents.filter(doc => doc.active)
                     if (documents.length > 0 && activeDocuments.length === 0) {
                       return (
-                        <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                          <p className="text-sm text-yellow-800">
+                        <div className="mt-4 p-3 bg-butter-dim border border-butter-dim rounded-lg">
+                          <p className="text-sm text-butter">
                             ⚠️ No active documents found.
                             <br />
                             <a href="/documents" className="underline font-medium">
@@ -687,14 +687,14 @@ export const Chat = () => {
 
             {isLoading && (
               <div className="flex justify-start mb-6">
-                <div className="bg-gray-50 rounded-2xl px-4 py-3 border">
+                <div className="bg-cream rounded-2xl px-4 py-3 border">
                   <div className="flex items-center space-x-2">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-ink-faint rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-ink-faint rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-ink-faint rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
-                    <span className="text-sm text-gray-600">Thinking...</span>
+                    <span className="text-sm text-ink-muted">Thinking...</span>
                   </div>
                 </div>
               </div>
@@ -704,7 +704,7 @@ export const Chat = () => {
           </div>
 
           {/* Input Area - fixed height, no shrinking */}
-          <div className="flex-shrink-0 border-t border-gray-200 p-3 sm:p-4 bg-white">
+          <div className="flex-shrink-0 border-t border-surface-border p-3 sm:p-4 bg-surface">
             <div className="flex space-x-2 sm:space-x-3">
               <div className="flex-1">
                 <textarea
@@ -712,7 +712,7 @@ export const Chat = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyPress}
                   placeholder="Ask a question about your documents..."
-                  className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm leading-relaxed"
+                  className="w-full border border-surface-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none text-sm leading-relaxed"
                   rows={1}
                   disabled={isLoading || !currentSession}
                   style={{

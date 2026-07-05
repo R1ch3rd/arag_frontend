@@ -9,19 +9,17 @@ import Signup from './pages/auth/Signup';
 import ConfirmSignup from './pages/auth/ConfirmSignup';
 import ForgotPassword from './pages/auth/ForgotPassword'; // ✨ NEW: Import ForgotPassword
 import ResetPassword from './pages/auth/ResetPassword'; // ✨ NEW: Import ResetPassword
+import GuestChat from './pages/GuestChat';
 
-// ✨ ENHANCED: Better loading component
 const LoadingScreen = () => (
-  <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+  <div className="min-h-screen bg-cream flex items-center justify-center">
     <div className="text-center">
-      <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
-        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 002 2z" />
-        </svg>
+      <div className="w-16 h-16 bg-accent-btn rounded-xl flex items-center justify-center mx-auto mb-4 animate-pulse">
+        <span className="text-white font-mono text-xl font-semibold">aR</span>
       </div>
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400 mx-auto mb-4"></div>
-      <p className="text-white text-lg font-medium">Loading ARAG...</p>
-      <p className="text-slate-300 text-sm">Setting up your workspace</p>
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent mx-auto mb-4"></div>
+      <p className="text-ink text-lg font-medium">Loading aRAG…</p>
+      <p className="text-ink-muted text-sm">Setting up your workspace</p>
     </div>
   </div>
 );
@@ -98,6 +96,9 @@ function App() {
 
           {/* ✨ Legacy login route redirect */}
           <Route path="/login" element={<Navigate to="/auth/login" replace />} />
+
+          {/* Public guest demo: no auth, rate-limited server-side */}
+          <Route path="/try" element={<GuestChat />} />
 
           {/* Protected routes */}
           <Route

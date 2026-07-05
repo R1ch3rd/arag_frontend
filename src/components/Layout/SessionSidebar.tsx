@@ -56,7 +56,7 @@ export const SessionSidebar = ({
 
   if (isCollapsed) {
     return (
-      <div className="w-12 sm:w-16 bg-gray-50 border-r border-gray-200 flex flex-col h-full">
+      <div className="w-12 sm:w-16 bg-cream border-r border-surface-border flex flex-col h-full">
         <div className="p-2 sm:p-4">
           <Button
             onClick={onToggleCollapse}
@@ -89,11 +89,11 @@ export const SessionSidebar = ({
   }
 
   return (
-    <div className="w-64 lg:w-72 xl:w-80 bg-gray-50 border-r border-gray-200 flex flex-col h-full">
+    <div className="w-64 lg:w-72 xl:w-80 bg-cream border-r border-surface-border flex flex-col h-full">
       {/* Header - fixed height, no shrinking */}
-      <div className="flex-shrink-0 p-3 lg:p-4 border-b border-gray-200">
+      <div className="flex-shrink-0 p-3 lg:p-4 border-b border-surface-border">
         <div className="flex items-center justify-between mb-3 lg:mb-4">
-          <h2 className="text-base lg:text-lg font-semibold text-gray-900">Chat Sessions</h2>
+          <h2 className="text-base lg:text-lg font-semibold text-ink">Chat Sessions</h2>
           <Button
             onClick={onToggleCollapse}
             variant="ghost"
@@ -123,12 +123,12 @@ export const SessionSidebar = ({
       {/* Sessions List - flex-1 with overflow for independent scrolling */}
       <div className="flex-1 overflow-y-auto">
         {sessions.length === 0 ? (
-          <div className="p-4 text-center text-gray-500">
-            <svg className="w-6 sm:w-8 h-6 sm:h-8 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="p-4 text-center text-ink-muted">
+            <svg className="w-6 sm:w-8 h-6 sm:h-8 mx-auto mb-2 text-ink-faint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             <p className="text-sm">No chat sessions yet</p>
-            <p className="text-xs text-gray-400 mt-1">Start a new conversation</p>
+            <p className="text-xs text-ink-faint mt-1">Start a new conversation</p>
           </div>
         ) : (
           <div className="p-2 space-y-1">
@@ -139,8 +139,8 @@ export const SessionSidebar = ({
                 className={`
                   group relative p-3 rounded-lg cursor-pointer transition-colors
                   ${currentSessionId === session.session_id
-                    ? 'bg-blue-100 border border-blue-200'
-                    : 'hover:bg-gray-100 border border-transparent'
+                    ? 'bg-accent-dim border border-accent'
+                    : 'hover:bg-cream-deep border border-transparent'
                   }
                 `}
               >
@@ -150,8 +150,8 @@ export const SessionSidebar = ({
                       <h3 className={`
                         text-sm lg:text-base font-medium truncate
                         ${currentSessionId === session.session_id
-                          ? 'text-blue-900'
-                          : 'text-gray-900'
+                          ? 'text-ink'
+                          : 'text-ink'
                         }
                       `}>
                         {session.title || 'New Chat'}
@@ -162,8 +162,8 @@ export const SessionSidebar = ({
                         <span className={`
                           text-xs px-2 py-1 rounded-full flex-shrink-0 ml-2
                           ${currentSessionId === session.session_id
-                            ? 'bg-blue-200 text-blue-700'
-                            : 'bg-gray-200 text-gray-600'
+                            ? 'bg-accent-dim text-accent-deep'
+                            : 'bg-cream-deep text-ink-muted'
                           }
                         `}>
                           {session.message_count}
@@ -176,8 +176,8 @@ export const SessionSidebar = ({
                       <p className={`
                         text-xs truncate mb-1
                         ${currentSessionId === session.session_id
-                          ? 'text-blue-700'
-                          : 'text-gray-600'
+                          ? 'text-accent-deep'
+                          : 'text-ink-muted'
                         }
                       `}>
                         {session.lastMessage}
@@ -188,8 +188,8 @@ export const SessionSidebar = ({
                     <p className={`
                       text-xs
                       ${currentSessionId === session.session_id
-                        ? 'text-blue-600'
-                        : 'text-gray-500'
+                        ? 'text-accent-deep'
+                        : 'text-ink-muted'
                       }
                     `}>
                       {formatTimeAgo(session.last_message_at || session.last_accessed)}
@@ -202,7 +202,7 @@ export const SessionSidebar = ({
                     disabled={deletingSession === session.session_id}
                     className={`
                       ml-2 p-1 rounded opacity-0 group-hover:opacity-100 flex-shrink-0
-                      transition-opacity hover:bg-red-100 text-red-500
+                      transition-opacity hover:bg-red-100 text-blush
                       disabled:opacity-50 disabled:cursor-not-allowed
                       ${currentSessionId === session.session_id ? 'opacity-100' : ''}
                     `}
@@ -227,8 +227,8 @@ export const SessionSidebar = ({
       </div>
 
       {/* Footer - fixed height, no shrinking */}
-      <div className="flex-shrink-0 p-2 lg:p-3 border-t border-gray-200 bg-gray-25">
-        <p className="text-xs text-gray-500 text-center">
+      <div className="flex-shrink-0 p-2 lg:p-3 border-t border-surface-border bg-cream">
+        <p className="text-xs text-ink-muted text-center">
           {sessions.length} session{sessions.length !== 1 ? 's' : ''}
         </p>
       </div>

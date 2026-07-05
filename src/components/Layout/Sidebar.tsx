@@ -18,14 +18,14 @@ export const Sidebar = ({
       {/* Mobile backdrop */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-gray-600 bg-opacity-75 md:hidden"
+          className="fixed inset-0 bg-ink-muted bg-opacity-75 md:hidden"
           onClick={onClose}
         />
       )}
 
       {/* Sidebar */}
       <div className={`
-        fixed inset-y-0 left-0 z-40 w-64 bg-white transform transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-40 w-64 bg-surface transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0 md:static md:h-[calc(100vh-4rem)]
       `}>
@@ -33,7 +33,7 @@ export const Sidebar = ({
           <span className="text-xl font-bold">Menu</span>
           <button 
             onClick={onClose}
-            className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+            className="p-2 rounded-md text-ink-faint hover:text-ink-muted hover:bg-cream-deep"
           >
             <XMarkIcon className="h-6 w-6" />
           </button>
@@ -42,7 +42,7 @@ export const Sidebar = ({
         <nav className="p-4 space-y-1">
           <Link
             to="/chat"
-            className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+            className="flex items-center px-4 py-2 text-ink-body hover:bg-cream-deep rounded-md"
             onClick={onClose}
           >
             <ChatBubbleLeftIcon className="h-5 w-5 mr-3" />
@@ -50,7 +50,7 @@ export const Sidebar = ({
           </Link>
           <Link
             to="/documents"
-            className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+            className="flex items-center px-4 py-2 text-ink-body hover:bg-cream-deep rounded-md"
             onClick={onClose}
           >
             <DocumentTextIcon className="h-5 w-5 mr-3" />

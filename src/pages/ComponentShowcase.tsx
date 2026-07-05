@@ -11,15 +11,15 @@ export const ComponentShowcase = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-cream p-8">
       <div className="max-w-4xl mx-auto space-y-12">
-        <h1 className="text-4xl font-bold text-gray-900">
+        <h1 className="text-4xl font-bold text-ink">
           Component Showcase
         </h1>
 
         {/* Buttons Section */}
         <section className="space-y-6">
-          <h2 className="text-2xl font-semibold text-gray-900">Buttons</h2>
+          <h2 className="text-2xl font-semibold text-ink">Buttons</h2>
           
           <div className="space-y-4">
             <div className="flex flex-wrap gap-4">
@@ -48,7 +48,7 @@ export const ComponentShowcase = () => {
 
         {/* Inputs Section */}
         <section className="space-y-6">
-          <h2 className="text-2xl font-semibold text-gray-900">Inputs</h2>
+          <h2 className="text-2xl font-semibold text-ink">Inputs</h2>
           
           <div className="space-y-4 max-w-md">
             <Input
@@ -72,26 +72,26 @@ export const ComponentShowcase = () => {
 
         {/* Cards Section */}
         <section className="space-y-6">
-          <h2 className="text-2xl font-semibold text-gray-900">Cards</h2>
+          <h2 className="text-2xl font-semibold text-ink">Cards</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <h3 className="text-lg font-medium mb-2">Basic Card</h3>
-              <p className="text-gray-600">
+              <p className="text-ink-muted">
                 This is a simple card component.
               </p>
             </Card>
 
-            <Card className="bg-blue-50">
+            <Card className="bg-accent-dim">
               <h3 className="text-lg font-medium mb-2">Colored Card</h3>
-              <p className="text-gray-600">
+              <p className="text-ink-muted">
                 Cards can have different backgrounds.
               </p>
             </Card>
 
             <Card>
               <h3 className="text-lg font-medium mb-4">Card with Button</h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-ink-muted mb-4">
                 Cards can contain other components.
               </p>
               <Button variant="primary">Click Me</Button>
@@ -106,7 +106,7 @@ export const ComponentShowcase = () => {
 
         {/* Form Example */}
         <section className="space-y-6">
-          <h2 className="text-2xl font-semibold text-gray-900">Form Example</h2>
+          <h2 className="text-2xl font-semibold text-ink">Form Example</h2>
           
           <Card>
             <form className="space-y-4 max-w-md">

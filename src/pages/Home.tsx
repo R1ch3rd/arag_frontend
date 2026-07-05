@@ -3,66 +3,58 @@ import { Button } from '../components/ui'
 
 export const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Welcome to RAG System
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Your intelligent document management and chat system
-            </p>
-            <div className="flex gap-4 justify-center">
-              <Link to="/chat">
-                <Button variant="primary" size="lg">
-                  Start Chat
-                </Button>
-              </Link>
-              <Link to="/documents">
-                <Button variant="secondary" size="lg">
-                  Upload Documents
-                </Button>
-              </Link>
-            </div>
-          </div>
+    <div className="max-w-4xl mx-auto">
+      {/* Hero */}
+      <div className="text-center py-14">
+        <h1 className="text-4xl sm:text-5xl font-display font-semibold text-ink mb-5">
+          Chat with your documents
+        </h1>
+        <p className="text-lg text-ink-muted mb-9 max-w-xl mx-auto">
+          Upload PDFs, Word files, or notes, then ask questions and get grounded,
+          page-cited answers. Retrieval-augmented generation on a serverless AWS stack.
+        </p>
+        <div className="flex gap-3 justify-center flex-wrap">
+          <Link to="/chat">
+            <Button variant="primary" size="lg">
+              Start chatting
+            </Button>
+          </Link>
+          <Link to="/documents">
+            <Button variant="secondary" size="lg">
+              Upload documents
+            </Button>
+          </Link>
         </div>
       </div>
 
-      {/* Features Grid */}
-      <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Document Management */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Document Management
-            </h2>
-            <p className="text-gray-600">
-              Upload and manage your documents with ease
+      {/* How it works */}
+      <div className="border-t border-surface-border pt-10 pb-14">
+        <ol className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <li>
+            <p className="font-mono text-xs text-accent-deep mb-2">01</p>
+            <h2 className="text-lg font-semibold text-ink mb-2">Upload</h2>
+            <p className="text-sm text-ink-muted leading-relaxed">
+              Documents are chunked page-by-page and embedded with Gemini,
+              then stored in Pinecone under your account.
             </p>
-          </div>
-
-          {/* Intelligent Chat */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Intelligent Chat
-            </h2>
-            <p className="text-gray-600">
-              Get instant answers from your documents
+          </li>
+          <li>
+            <p className="font-mono text-xs text-accent-deep mb-2">02</p>
+            <h2 className="text-lg font-semibold text-ink mb-2">Ask</h2>
+            <p className="text-sm text-ink-muted leading-relaxed">
+              Questions retrieve the most relevant passages across every
+              active document, with hybrid search and caching.
             </p>
-          </div>
-
-          {/* Secure Access */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Secure Access
-            </h2>
-            <p className="text-gray-600">
-              Your data is protected with enterprise-grade security
+          </li>
+          <li>
+            <p className="font-mono text-xs text-accent-deep mb-2">03</p>
+            <h2 className="text-lg font-semibold text-ink mb-2">Verify</h2>
+            <p className="text-sm text-ink-muted leading-relaxed">
+              Every answer cites its sources with page numbers, so you can
+              check the model against the original text.
             </p>
-          </div>
-        </div>
+          </li>
+        </ol>
       </div>
     </div>
   )

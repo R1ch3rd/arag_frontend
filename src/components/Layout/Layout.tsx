@@ -7,7 +7,7 @@ export const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-cream">
       <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
       
       <div className="flex">

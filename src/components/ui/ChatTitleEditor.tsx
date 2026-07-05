@@ -57,16 +57,16 @@ export const ChatTitleEditor = ({ title, onSave, className }: ChatTitleEditorPro
           onBlur={handleSave}
           autoFocus
           disabled={isSaving}
-          className="flex-1 text-xl font-semibold bg-transparent border-b-2 border-blue-500 focus:outline-none disabled:opacity-50"
+          className="flex-1 text-xl font-semibold bg-transparent border-b-2 border-accent focus:outline-none disabled:opacity-50"
           maxLength={100}
         />
         {isSaving ? (
-          <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+          <div className="animate-spin w-4 h-4 border-2 border-accent border-t-transparent rounded-full"></div>
         ) : (
           <div className="flex space-x-1">
             <button
               onClick={handleSave}
-              className="p-1 text-green-600 hover:text-green-800"
+              className="p-1 text-sage hover:text-green-800"
               title="Save"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@ export const ChatTitleEditor = ({ title, onSave, className }: ChatTitleEditorPro
             </button>
             <button
               onClick={handleCancel}
-              className="p-1 text-red-600 hover:text-red-800"
+              className="p-1 text-blush hover:text-blush"
               title="Cancel"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,7 +90,7 @@ export const ChatTitleEditor = ({ title, onSave, className }: ChatTitleEditorPro
 
   return (
     <h1 
-      className={`text-xl font-semibold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors ${className}`}
+      className={`text-xl font-semibold text-ink cursor-pointer hover:text-accent-deep transition-colors ${className}`}
       onClick={() => setIsEditing(true)}
       title="Click to edit"
     >

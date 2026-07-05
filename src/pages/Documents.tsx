@@ -172,8 +172,8 @@ export const Documents = () => {
     return (
       <div className="max-w-4xl mx-auto">
         <div className="text-center py-12">
-          <div className="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your documents...</p>
+          <div className="animate-spin w-8 h-8 border-2 border-accent border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-ink-muted">Loading your documents...</p>
         </div>
       </div>
     )
@@ -184,7 +184,7 @@ export const Documents = () => {
     return (
       <div className="max-w-4xl mx-auto">
         <div className="text-center py-8">
-          <p className="text-gray-600">Loading...</p>
+          <p className="text-ink-muted">Loading...</p>
         </div>
       </div>
     )
@@ -197,8 +197,8 @@ export const Documents = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Documents</h1>
-        <p className="text-gray-600">
+        <h1 className="text-2xl font-bold text-ink">Documents</h1>
+        <p className="text-ink-muted">
           Upload and manage your documents
           {documents.length > 0 && (
             <span className="ml-2">
@@ -210,7 +210,7 @@ export const Documents = () => {
 
       {/* 🔧 DEBUG: Add cache status for debugging */}
       {process.env.NODE_ENV === 'development' && (
-        <div className="mb-4 p-3 bg-gray-100 rounded-md text-xs">
+        <div className="mb-4 p-3 bg-cream-deep rounded-md text-xs">
           <strong>Debug Info:</strong> Cache initialized: {cacheInitialized ? '✅' : '❌'},
           Documents in state: {documents.length},
           Documents in cache: {cacheManager.getDocuments().length}
@@ -219,14 +219,14 @@ export const Documents = () => {
 
       {/* 🔧 Add warning if no active documents */}
       {documents.length > 0 && !hasActiveDocuments && (
-        <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+        <div className="mb-4 p-4 bg-butter-dim border border-butter-dim rounded-md">
           <div className="flex">
-            <svg className="w-5 h-5 text-yellow-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-butter mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
             </svg>
             <div>
-              <h3 className="text-sm font-medium text-yellow-800">No Active Documents</h3>
-              <p className="mt-1 text-sm text-yellow-700">
+              <h3 className="text-sm font-medium text-butter">No Active Documents</h3>
+              <p className="mt-1 text-sm text-butter">
                 You need at least one active document to create chat sessions.
                 Click "Activate" on any document to use it in your chats.
               </p>
@@ -236,14 +236,14 @@ export const Documents = () => {
       )}
 
       {error && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
-          <p className="text-red-800">{error}</p>
+        <div className="mb-4 p-4 bg-blush-dim border border-blush-dim rounded-md">
+          <p className="text-blush">{error}</p>
         </div>
       )}
 
       {/* Upload Area */}
       <Card
-        className={`p-8 border-2 border-dashed ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+        className={`p-8 border-2 border-dashed ${isDragging ? 'border-accent bg-accent-dim' : 'border-surface-border'
           }`}
         onDragOver={(e) => {
           e.preventDefault()
@@ -253,7 +253,7 @@ export const Documents = () => {
         onDrop={handleDrop}
       >
         <div className="text-center">
-          <div className="text-gray-600 mb-4">
+          <div className="text-ink-muted mb-4">
             Drag and drop your files here, or
           </div>
           <Button
@@ -285,32 +285,32 @@ export const Documents = () => {
                     <div className="flex items-center gap-2">
                       <h3 className="font-medium">{doc.filename}</h3>
                       {!doc.active && (
-                        <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                        <span className="text-xs bg-cream-deep text-ink-muted px-2 py-1 rounded">
                           Inactive
                         </span>
                       )}
                       {doc.active && (
-                        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+                        <span className="text-xs bg-sage-dim text-sage px-2 py-1 rounded">
                           Active
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-ink-muted">
                       Uploaded {new Date(doc.created_at).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   {doc.status === 'processing' ? (
-                    <span className="text-yellow-600 bg-yellow-50 px-2 py-1 rounded-full text-sm">
+                    <span className="text-butter bg-butter-dim px-2 py-1 rounded-full text-sm">
                       Processing...
                     </span>
                   ) : doc.status === 'ready' ? (
-                    <span className="text-green-600 bg-green-50 px-2 py-1 rounded-full text-sm">
+                    <span className="text-sage bg-sage-dim px-2 py-1 rounded-full text-sm">
                       Ready
                     </span>
                   ) : (
-                    <span className="text-red-600 bg-red-50 px-2 py-1 rounded-full text-sm">
+                    <span className="text-blush bg-blush-dim px-2 py-1 rounded-full text-sm">
                       Error
                     </span>
                   )}
@@ -338,7 +338,7 @@ export const Documents = () => {
                     size="sm"
                     onClick={() => handleDelete(doc.document_id)}
                     disabled={deletingIds.has(doc.document_id)}
-                    className="text-red-600 hover:text-red-800 hover:bg-red-50"
+                    className="text-blush hover:text-blush-ink hover:bg-blush-dim"
                   >
                     {deletingIds.has(doc.document_id) ? 'Deleting...' : 'Delete'}
                   </Button>
@@ -348,7 +348,7 @@ export const Documents = () => {
           ))
         ) : (
           <div className="text-center py-8">
-            <p className="text-gray-600">No documents uploaded yet</p>
+            <p className="text-ink-muted">No documents uploaded yet</p>
           </div>
         )}
       </div>
