@@ -19,6 +19,7 @@ interface ChatMessage {
   sessionId?: string
   sources?: Array<{
     document_id: string
+    filename?: string
     text: string
     relevance_score: number
   }>
@@ -458,7 +459,7 @@ export const Chat = () => {
   // Show loading only briefly, then show app even if cache is loading
   if (!isInitialized && backgroundLoading) {
     return (
-      <div className="flex h-screen bg-surface rounded-lg shadow overflow-hidden">
+      <div className="flex h-[calc(100vh-4rem)] bg-surface overflow-hidden">
         <div className="w-48 md:w-64 bg-cream border-r border-surface-border flex flex-col items-center justify-center">
           <div className="animate-spin w-6 h-6 border-2 border-accent border-t-transparent rounded-full mb-2"></div>
           <p className="text-sm text-ink-muted">Loading sessions...</p>
@@ -506,7 +507,7 @@ export const Chat = () => {
                 {message.sources.map((source, idx) => (
                   <div key={idx} className="text-xs text-ink-muted bg-surface rounded-lg p-2 border">
                     <div className="font-medium text-ink mb-1">
-                      Document {source.document_id}
+                      {source.filename || 'Document'}
                     </div>
                     <div className="line-clamp-2 leading-relaxed">
                       {source.text}
@@ -543,7 +544,7 @@ export const Chat = () => {
       )}
 
       {/* Main container - fixed to viewport height, no page scrolling */}
-      <div className="flex h-screen bg-surface rounded-lg shadow overflow-hidden">
+      <div className="flex h-[calc(100vh-4rem)] bg-surface overflow-hidden">
         {/* Desktop Session Sidebar */}
         <div className="hidden md:block">
           <SessionSidebar
@@ -558,7 +559,7 @@ export const Chat = () => {
         </div>
 
         {/* Main Chat Area - flex column with proper height constraints */}
-        <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
           {/* Header - fixed height, no shrinking */}
           <div className="flex-shrink-0 border-b border-surface-border p-3 sm:p-4 bg-surface">
             <div className="flex items-center justify-between">

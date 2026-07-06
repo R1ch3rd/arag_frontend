@@ -12,21 +12,22 @@ interface ModelOption {
 }
 
 const AVAILABLE_MODELS: ModelOption[] = [
-  // Only the 2 working models
-  {
-    id: 'together-meta-llama/Llama-3.3-70B-Instruct-Turbo-Free',
-    name: 'Llama 3.3 70B (Free)',
-    description: 'Fast, capable model for general conversations',
-    provider: 'Together AI',
-    speed: 'fast',
-    quality: 'better'
-  },
+  // Llama (Together AI) removed until an API key is configured;
+  // add more providers here later.
   {
     id: 'gemini-2.5-flash',
     name: 'Gemini 2.5 Flash',
     description: 'Latest Google model with advanced capabilities',
     provider: 'Google',
     speed: 'medium',
+    quality: 'best'
+  },
+  {
+    id: 'gemini-flash-latest',
+    name: 'Gemini Flash (latest)',
+    description: 'Alias that always tracks the newest stable Flash',
+    provider: 'Google',
+    speed: 'fast',
     quality: 'best'
   }
 ]

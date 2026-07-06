@@ -3,7 +3,7 @@ import { Button } from '../components/ui'
 
 export const Home = () => {
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto p-6">
       {/* Hero */}
       <div className="text-center py-14">
         <h1 className="text-4xl sm:text-5xl font-display font-semibold text-ink mb-5">

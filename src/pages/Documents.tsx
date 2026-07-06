@@ -12,6 +12,7 @@ export const Documents = () => {
   const [error, setError] = useState<string | null>(null)
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set())
   const [togglingIds, setTogglingIds] = useState<Set<string>>(new Set())
+  const [viewingIds, setViewingIds] = useState<Set<string>>(new Set())
   const { token, cacheInitialized } = useAuth()
 
   // 🔧 FIX: Always wait for cache, never fetch directly
@@ -151,6 +152,27 @@ export const Documents = () => {
     }
   }
 
+  const handleView = async (documentId: string) => {
+    if (!token) {
+      setError('No authentication token available')
+      return
+    }
+    setViewingIds(prev => new Set(prev).add(documentId))
+    setError(null)
+    try {
+      const { url } = await documentService.viewDocument(documentId, token)
+      window.open(url, '_blank', 'noopener')
+    } catch (err: any) {
+      setError(`Failed to open document: ${err.message || 'Unknown error'}`)
+    } finally {
+      setViewingIds(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(documentId)
+        return newSet
+      })
+    }
+  }
+
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault()
     setIsDragging(false)
@@ -170,7 +192,7 @@ export const Documents = () => {
   // Show loading state while cache is initializing
   if (!cacheInitialized) {
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto p-6">
         <div className="text-center py-12">
           <div className="animate-spin w-8 h-8 border-2 border-accent border-t-transparent rounded-full mx-auto mb-4"></div>
           <p className="text-ink-muted">Loading your documents...</p>
@@ -182,7 +204,7 @@ export const Documents = () => {
   // Show loading state while token is being retrieved
   if (!token) {
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto p-6">
         <div className="text-center py-8">
           <p className="text-ink-muted">Loading...</p>
         </div>
@@ -195,7 +217,7 @@ export const Documents = () => {
   const hasActiveDocuments = activeDocuments.length > 0
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-ink">Documents</h1>
         <p className="text-ink-muted">
@@ -329,8 +351,13 @@ export const Documents = () => {
                     }
                   </Button>
 
-                  <Button variant="ghost" size="sm">
-                    View
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleView(doc.document_id)}
+                    disabled={viewingIds.has(doc.document_id) || doc.status !== 'ready'}
+                  >
+                    {viewingIds.has(doc.document_id) ? 'Opening…' : 'View'}
                   </Button>
 
                   <Button

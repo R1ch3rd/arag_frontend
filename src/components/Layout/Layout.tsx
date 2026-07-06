@@ -16,7 +16,8 @@ export const Layout = () => {
           onClose={() => setIsSidebarOpen(false)} 
         />
         
-        <main className="flex-1 p-6">
+        {/* pages own their padding; chat needs edge-to-edge viewport math */}
+        <main className="flex-1 min-w-0">
           <Outlet />
         </main>
       </div>

@@ -103,6 +103,12 @@ export const documentService = {
     }
   },
 
+  async viewDocument(documentId: string, token?: string): Promise<{ url: string; filename: string }> {
+    const response = await api.get(`/documents/${documentId}/view`, token)
+    if (!response?.url) throw new Error('No view URL returned')
+    return response
+  },
+
   // Keep one upload method for compatibility
   async getUploadUrl(_filename: string, _token?: string) {
     throw new Error('Use uploadDocument instead')
