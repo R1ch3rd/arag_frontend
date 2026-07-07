@@ -2,6 +2,10 @@
 
 A modern, responsive React application for document-based AI chat interactions. Built with TypeScript, Vite, and Tailwind CSS, this frontend provides a seamless interface for managing documents and conducting AI-powered conversations.
 
+**Live demo:** https://arag-swart.vercel.app &nbsp;·&nbsp; **Guest mode (no signup):** https://arag-swart.vercel.app/try
+
+Backend: https://github.com/R1ch3rd/arag_backend
+
 ## 🚀 Features
 
 ### 🔐 Authentication System
